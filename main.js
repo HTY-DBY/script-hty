@@ -1,15 +1,11 @@
 // ==UserScript==
 // @name         hty 脚本
-// @version      1.0.23
-// @description  hty的小脚本，个人使用向，不建议社会人士下载
-// @namespace    https://github.com/HTY-DBY/script-hty.git
+// @description  hty 的小脚本，个人使用向，不建议社会人士下载
+// @version      1.0
 // @author       hty
+// @namespace    https://github.com/HTY-DBY/script-hty
 // @icon         https://hty.ink/logo.jpg
-// @grant        GM_addStyle
-// @grant        GM_setValue
-// @grant        GM_getValue
-// @grant        GM_log
-// @require      https://code.jquery.com/jquery-3.6.0.js
+// @grant        none
 // @match        *://*.csdn.net/*
 // @match        *://*.google.com/*
 // @match        *://*.bing.com/*
@@ -18,33 +14,14 @@
 // @match        *://*.baidu.com/*
 // @match        *://*.yutu.cn/*
 // @match        *://*.zhihu.com/*
+// @license      MIT
 // ==/UserScript==
 
-// @note         1.0.23 b站的评论区右置的 bug 修复
-// @note         1.0.22 b站的评论区右置，仅 bangumi 和 video
-// @note         1.0.21 知乎专栏评论区的字体调白
-// @note         1.0.20 知乎评论区的字体调白
-// @note         1.0.19 b 站自动宽屏播放的一些 bug 修复
-// @note         1.0.18 b 站自动宽屏播放
-// @note         1.0.17 一些信息的补充
-// @note         1.0.16 一些信息的补充
-// @note         1.0.15 优化了百度的黑暗，修复了谷歌的头部动画元素无法搜索到的问题
-// @note         1.0.14 优化了些 bug，并适配了必应黑暗的[图片]分支
-// @note         1.0.13 处理了烦人的必应 Related Searches
-// @note         1.0.12 必应改的搜索框再次恢复居中
-// @note         1.0.11 添加对 stitch.blog.csdn.net 的调整
-// @note         1.0.10 1.0.9 发错了，重发一遍
-// @note         1.0.9 适配了百度 head
-// @note         1.0.8 增删了一些功能
-// @note         1.0.7 增删了一些功能
-// @note         1.0.6 修复了某哔哩哔哩黑暗插件的评论区 bug
-// @note         1.0.5 一些功能的删减，需配合广告插件一并使用，不建议升级
-// @note         该脚本尽量不使用 jq，全局以 try 语句实现，以免出现不必要的 bug 和简化维护难度，虽然这样看起来很丑
-// @note         由于采用大量 try 语句，使用者应尽可能使用 V8 及以上引擎，即较新版浏览器即可
+// @note         1.0 个人使用向，不建议社会人士下载
 
 // bing 刷新
 if (window.location.href == 'https://www4.bing.com/#reloaded') {
-    window.location.href = "https://www4.bing.com";
+    window.location.href = "https://www4.bing.com"
 } else {
     //获取当前网页url
     var url = window.location.host
@@ -54,64 +31,65 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
         // google 黑暗
         if (url == "www.google.com.hk" || url == "www.google.com") {
             let timer = setInterval(function () {
-                let OK = 0;
+                let OK = 0
                 try {
-                    document.body.style.backgroundColor = "black";
-                    document.getElementsByClassName('yg51vc')[0].style.height = "55px";
-                    OK = 1;
+                    document.body.style.backgroundColor = "black"
+                    document.getElementsByClassName('yg51vc')[0].style.height = "55px"
+                    document.getElementsByClassName('yg51vc')[0].style.backgroundColor = "black"
+                    OK = 1
                 } catch { }
                 if (OK == 1) {
-                    clearInterval(timer);
+                    clearInterval(timer)
                 }
-            }, 200);
+            }, 200)
         }
 
         // 知乎 黑暗
         if (url == "www.zhihu.com" || url == "zhuanlan.zhihu.com") {
             // 评论区懒加载，故这个计时器不请
             let timer = setInterval(function () {
-                // let OK = 0;
+                // let OK = 0
                 try {
                     let alist_1ygdre8 = document.getElementsByClassName('css-1ygdre8')
                     for (let idx = 0; idx < alist_1ygdre8.length; idx++) {
-                        document.getElementsByClassName('css-1ygdre8')[idx].style.color = "white";
+                        document.getElementsByClassName('css-1ygdre8')[idx].style.color = "white"
                     }
                     let alist_1rd0h6f = document.getElementsByClassName('css-1rd0h6f')
                     for (let idx = 0; idx < alist_1rd0h6f.length; idx++) {
-                        document.getElementsByClassName('css-1rd0h6f')[idx].style.color = "#bfbfbf";
+                        document.getElementsByClassName('css-1rd0h6f')[idx].style.color = "#bfbfbf"
                     }
                 } catch { }
-            }, 200);
+            }, 200)
         }
 
         // baidu 黑暗
         if (url == "www.baidu.com") {
             let timer = setInterval(function () {
-                let OK = 0;
+                let OK = 0
                 try {
-                    document.body.style.backgroundColor = "black";
-                    document.getElementById("head").style.backgroundColor = "black";
-                    document.getElementsByClassName('s_tab_inner s_tab_inner_81iSw')[0].style.backgroundColor = "black";
-                    OK = 1;
+                    document.body.style.backgroundColor = "black"
+                    document.getElementById("head").style.backgroundColor = "black"
+                    document.getElementsByClassName('s_tab_inner s_tab_inner_81iSw')[0].style.backgroundColor = "black"
+                    OK = 1
                 } catch { }
                 if (OK == 1) {
-                    clearInterval(timer);
+                    clearInterval(timer)
                 }
-            }, 200);
+            }, 200)
         }
 
         // bilibili 黑暗
         if (url == "www.bilibili.com") {
             let timer_footer = setInterval(function () {
-                let OK = 0;
+                let OK = 0
                 try {
-                    document.getElementById("comment").getElementsByClassName("comment-container")[0].style.backgroundColor = "black";
-                    OK = 1;
+                    document.getElementById("comment").getElementsByClassName("comment-container")[0].style.backgroundColor = "black"
+                    OK = 1
                 } catch { }
                 if (OK == 1) {
-                    clearInterval(timer_footer);
+                    clearInterval(timer_footer)
                 }
-            }, 200);
+            }, 200)
         }
 
         // bing 黑暗
@@ -119,38 +97,38 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
             // 为了防止首页产生性能损失，在开头做了一个判断语句
             if (document.getElementsByClassName("b_searchboxForm")[0]) {
                 let timer = setInterval(function () {
-                    let OK = 0;
+                    let OK = 0
                     try {
-                        document.body.style.backgroundColor = "black";
-                        let a = document.getElementsByClassName("b_scopebar")[0];
-                        let b = a.getElementsByTagName("ul")[0];
-                        let c = b.getElementsByTagName("li");
+                        document.body.style.backgroundColor = "black"
+                        let a = document.getElementsByClassName("b_scopebar")[0]
+                        let b = a.getElementsByTagName("ul")[0]
+                        let c = b.getElementsByTagName("li")
                         for (let idx = 0; idx < c.length; idx++) {
-                            let d = c[idx].getElementsByTagName("a");
-                            console.log(d[0]);
-                            d[0].style.color = "#ffffff";
+                            let d = c[idx].getElementsByTagName("a")
+                            console.log(d[0])
+                            d[0].style.color = "#ffffff"
                         }
-                        OK = 1;
+                        OK = 1
                     } catch { }
                     if (OK == 1) {
-                        clearInterval(timer);
+                        clearInterval(timer)
                     }
-                }, 200);
+                }, 200)
             }
             // 这里是处理 [图片]分支 的 [黑暗]
             if (document.getElementById("b_header")) {
                 let timer = setInterval(function () {
-                    let OK = 0;
+                    let OK = 0
                     try {
-                        document.getElementById("b_header").style.backgroundColor = "black";
-                        document.getElementById("rfPane").style.backgroundColor = "black";
-                        document.getElementsByClassName("dg_b")[0].style.backgroundColor = "black";
-                        OK = 1;
+                        document.getElementById("b_header").style.backgroundColor = "black"
+                        document.getElementById("rfPane").style.backgroundColor = "black"
+                        document.getElementsByClassName("dg_b")[0].style.backgroundColor = "black"
+                        OK = 1
                     } catch { }
                     if (OK == 1) {
-                        clearInterval(timer);
+                        clearInterval(timer)
                     }
-                }, 200);
+                }, 200)
             }
         }
     }
@@ -160,9 +138,9 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
         // 滚动函数
         let scroll_hty = (element, scrollS) => {
             if (scrollS > 0) {
-                element.slideUp(100);
+                element.slideUp(100)
             } else {
-                element.slideDown(100);
+                element.slideDown(100)
             }
         }
 
@@ -175,7 +153,7 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                 try {
                     document.getElementsByClassName("bili-header__bar")[0].style.position = 'absolute'
                 } catch { }
-            }, 200);
+            }, 200)
         }
 
         let Head_pretreatment = url => {
@@ -199,8 +177,8 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                         try {
                             document.getElementById("csdn-toolbar").style.position = 'relative'
                         } catch { }
-                    });
-                });
+                    })
+                })
                 mutationObserver_Related_Searches.observe(document.getElementById("csdn-toolbar"), {
                     attributes: true,
                     characterData: true,
@@ -209,7 +187,7 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                     attributeOldValue: true,
                     characterDataOldValue: true,
                     style: true
-                });
+                })
             }
 
             // soujianzhu head
@@ -222,7 +200,7 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
 
         // 用滚动 处理 head 事件
         window.addEventListener("scroll", (event) => {
-            let scrollS = document.documentElement.scrollTop;
+            let scrollS = document.documentElement.scrollTop
 
             // 该处是担心 head_pretreatment 加载缓慢被刷语句，故再来一次
             Head_pretreatment(url)
@@ -230,12 +208,12 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
             // 示例代码
             // if (url == 'xxx') {
             //     if ($("#Header")) {
-            //         let head = $("#Header");
-            //         scroll_hty(head, scrollS);
+            //         let head = $("#Header")
+            //         scroll_hty(head, scrollS)
             //     }
             // }
 
-        });
+        })
     }
 
     // 其他处理
@@ -244,9 +222,9 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
         if (url == "blog.csdn.net" || url == "stitch.blog.csdn.net" || url == "ideashare.blog.csdn.net") {
             let timer = setInterval(function () {
                 try {
-                    document.getElementById("mainBox").setAttribute("class", "container clearfix container-concision");
+                    document.getElementById("mainBox").setAttribute("class", "container clearfix container-concision")
                 } catch { }
-            }, 200);
+            }, 200)
         }
 
         // bilibili
@@ -257,23 +235,23 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                 let timer = setInterval(function () {
                     if (!document.getElementsByClassName('bpx-state-entered')[0]) {
                         try {
-                            document.getElementsByClassName('bpx-player-ctrl-wide')[0].click();
+                            document.getElementsByClassName('bpx-player-ctrl-wide')[0].click()
                         } catch { }
                     }
                     if (!document.getElementsByClassName('squirtle-video-widescreen squirtle-video-item active')[0]) {
                         try {
-                            document.getElementsByClassName('squirtle-video-widescreen squirtle-video-item')[0].click();
+                            document.getElementsByClassName('squirtle-video-widescreen squirtle-video-item')[0].click()
                         } catch { }
                     }
                     if (!document.getElementsByClassName('bilibili-player-video-btn bilibili-player-video-btn-widescreen closed')[0]) {
                         try {
-                            document.getElementsByClassName('bilibili-player-video-btn bilibili-player-video-btn-widescreen')[0].click();
+                            document.getElementsByClassName('bilibili-player-video-btn bilibili-player-video-btn-widescreen')[0].click()
                         } catch { }
                     }
                     if (getComputedStyle(document.querySelector("#bilibili-player"), null).position == 'relative') {
-                        clearInterval(timer);
+                        clearInterval(timer)
                     }
-                }, 200);
+                }, 200)
             }
             // 评论右置
             if (document.getElementById('bilibili-player')) {
@@ -292,7 +270,7 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                             document.getElementsByClassName('tool-bar')[0].style.paddingLeft = hty_set
                             document.getElementsByClassName('plp-r')[0].style.right = 'auto'
                         } catch { }
-                    }, 200);
+                    }, 200)
                 }
                 // video
                 if (url == "www.bilibili.com" && window.location.pathname.substring(window.location.pathname.indexOf("/", 0) + 1, window.location.pathname.indexOf("/", 1)) == "video") {
@@ -311,7 +289,7 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                             document.getElementsByClassName('b-head')[0].style.paddingLeft = hty_set
                             document.getElementsByClassName('v-wrap')[0].style.justifyContent = 'left'
                         } catch { }
-                    }, 200);
+                    }, 200)
                 }
             }
         }
@@ -319,18 +297,18 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
         // google search
         if (url == "www.google.com.hk" || url == "www.google.com") {
             let timer = setInterval(function () {
-                let OK = 0;
+                let OK = 0
                 try {
-                    document.getElementById("tsf").style.cssText = "--center-abs-margin: 365px";
-                    document.getElementById("hdtb-msb").style.cssText = "--center-abs-margin: 0px; background-color: black;";
+                    document.getElementById("tsf").style.cssText = "--center-abs-margin: 365px"
+                    document.getElementById("hdtb-msb").style.cssText = "--center-abs-margin: 0px background-color: black"
                     // 这一段是为了修改 脚本[AC-baidu-重定向优化百度搜狗谷歌必应搜索_favicon_双列] 的bug
                     document.getElementsByClassName('AC-GoogleGridDelta-Style')[0].outerText = ''
-                    OK = 1;
+                    OK = 1
                 } catch { }
                 if (OK == 1) {
-                    clearInterval(timer);
+                    clearInterval(timer)
                 }
-            }, 200);
+            }, 200)
         }
 
         // bing
@@ -338,7 +316,7 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
         ) {
             try {
                 if (window.location.search.indexOf("FORM") == 1 || window.location.search.indexOf("ensearch") == 1) {
-                    window.location.href = "https://www4.bing.com";
+                    window.location.href = "https://www4.bing.com"
                 }
             } catch { }
             try {
@@ -349,30 +327,30 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
             if (document.getElementsByClassName("sbox ")[0]) {
                 // 首页搜索框居中
                 try {
-                    document.getElementsByClassName("sbox ")[0].style.margin = "0px auto";
-                    document.getElementsByClassName("sbox ")[0].style.position = 'inherit';
+                    document.getElementsByClassName("sbox ")[0].style.margin = "0px auto"
+                    document.getElementsByClassName("sbox ")[0].style.position = 'inherit'
                 } catch { }
                 let timer_footer = setInterval(function () {
-                    let OK = 0;
+                    let OK = 0
                     try {
                         // 修改搜索框样式使其居中
-                        document.getElementsByClassName("sbox ")[0].style.margin = "0px auto";
-                        document.getElementsByClassName("sbox ")[0].style.position = 'inherit';
+                        document.getElementsByClassName("sbox ")[0].style.margin = "0px auto"
+                        document.getElementsByClassName("sbox ")[0].style.position = 'inherit'
                         // 顺便清除下底部 footer
-                        document.getElementById("footer").style.display = "none";
-                        document.getElementById("vs_cont").style.display = "none";
-                        OK = 1;
+                        document.getElementById("footer").style.display = "none"
+                        document.getElementById("vs_cont").style.display = "none"
+                        OK = 1
                     } catch { }
                     if (OK == 1) {
-                        clearInterval(timer_footer);
+                        clearInterval(timer_footer)
                     }
-                }, 200);
+                }, 200)
             }
             // 为了防止首页产生性能损失，在开头做了一个判断语句
             if (document.getElementsByClassName("b_searchboxForm")[0]) {
                 // 去除搜索时弹出的 Related Searches
                 let timer_Related_Searches = setInterval(function () {
-                    let OK = 0;
+                    let OK = 0
                     try {
                         // 监听变化
                         var mutationObserver_Related_Searches = new MutationObserver(function (mutations) {
@@ -390,8 +368,8 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                                 try {
                                     document.getElementsByClassName("sa_drw")[0].style.borderRadius = '0px 0px 24px 24px'
                                 } catch { }
-                            });
-                        });
+                            })
+                        })
                         mutationObserver_Related_Searches.observe(document.getElementsByClassName("b_searchboxForm")[0], {
                             attributes: true,
                             characterData: true,
@@ -399,13 +377,13 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
                             subtree: true,
                             attributeOldValue: true,
                             characterDataOldValue: true
-                        });
+                        })
                         OK = 1
                     } catch { }
                     if (OK == 1) {
-                        clearInterval(timer_Related_Searches);
+                        clearInterval(timer_Related_Searches)
                     }
-                }, 200);
+                }, 200)
             }
         }
     }
@@ -417,27 +395,27 @@ if (window.location.href == 'https://www4.bing.com/#reloaded') {
         if (url == "www.google.com.hk" || url == "www.google.com") {
             let timer = setInterval(function () {
                 try {
-                    document.getElementById("tsf").style.animationName = "null";
+                    document.getElementById("tsf").style.animationName = "null"
                 } catch { }
-            }, 200);
+            }, 200)
         }
 
         // baidu anime
         if (url == "www.baidu.com") {
             let timer = setInterval(function () {
                 try {
-                    document.querySelector(".head_wrapper").style.animationName = "null";
+                    document.querySelector(".head_wrapper").style.animationName = "null"
                 } catch { }
                 if (document.querySelector(".head_wrapper").style.animationName == "null") {
-                    clearInterval(timer);
+                    clearInterval(timer)
                 }
-            }, 200);
+            }, 200)
         }
     }
 
-    Dark_hty(url);
-    Head_hty(url);
-    Other_hty(url);
-    Anime_hty(url);
+    Dark_hty(url)
+    Head_hty(url)
+    Other_hty(url)
+    Anime_hty(url)
 
 }
