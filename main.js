@@ -2,7 +2,7 @@
 // @name         hty 脚本
 // @version      1.0.23
 // @description  hty的小脚本，个人使用向，不建议社会人士下载
-// @namespace    https://github.com/HTY-DBY
+// @namespace    https://github.com/HTY-DBY/script-hty.git
 // @author       hty
 // @icon         https://hty.ink/logo.jpg
 // @grant        GM_addStyle
